@@ -1,5 +1,10 @@
+import {v4 as uuid} from './node_modules/uuid/dist/esm-browser/index.js';
+
 const formNewRecado = document.getElementById('form-new-recado');
+const formNewRecadoDescricao = document.getElementById('description');
+const formNewRecadoDetalhamento = document.getElementById('details');
 const tableRecados = document.getElementById('table-recados');
+const idEdicao = document.getElementById('id-edicao');
 let recados = [];
 
 
@@ -14,15 +19,26 @@ function submitForm(event) {
         descricao: event.target.description.value,
         detalhamento: event.target.details.value
     }
-
-    addRecado(recado);
+    
+    if(criacao()) {
+        recado.id = uuid();
+        criarRecado(recado);
+    } else {
+        salvarRecado(recado);
+    }
 }
 
-function addRecado(recado) {
+function criacao() {
+    return idEdicao.value.length === 0;
+}
+
+function criarRecado(recado) {
     recados.push(recado);
     localStorage.setItem('recados', JSON.stringify(recados));
     
     popularRecadoHtml(recados[recados.length-1], recados.length -1);
+
+    formNewRecado.reset();
 }
 
 function popularTabelaRecados() {
@@ -35,15 +51,18 @@ function popularTabelaRecados() {
 
 function popularRecadoHtml(recado, index) {
     const tr = document.createElement('tr');
+    tr.id = recado.id;
 
     const th = document.createElement('th');
     th.scope = 'row';
     th.textContent = index + 1;
 
     const tdDescricao = document.createElement('td');
+    tdDescricao.className = 'descricao';
     tdDescricao.textContent = recado.descricao;
 
     const tdDetalhamento = document.createElement('td');
+    tdDetalhamento.className = 'detalhamento';
     tdDetalhamento.textContent = recado.detalhamento;    
 
     const botaoEditar = document.createElement('button');
@@ -72,11 +91,42 @@ function excluirRecado() {
     console.log('exclusão');
 }
 
-function editarRecado() {
-    console.log('edição');
+function editarRecado(event) {
+    const id = event.target.parentElement.parentElement.id;
+    const recado = recados.find(e => e.id === id);
+    
+    formNewRecadoDescricao.value = recado.descricao;
+    formNewRecadoDetalhamento.value = recado.detalhamento;
+    idEdicao.value = recado.id;
+
+}
+
+function salvarRecado(recado) {
+    const recadoAtual = recados.find(e => e.id === idEdicao.value);
+    recadoAtual.descricao = recado.descricao;
+    recadoAtual.detalhamento = recado.detalhamento;
+
+    console.log(recadoAtual);
+
+    for(let tr of tableRecados.children) {
+        if(tr.id === idEdicao.value) {
+            for(let td of tr.children) {
+                if(td.classList.value.includes('descricao')) {
+                    td.textContent = recadoAtual.descricao;
+                } else if(td.classList.value.includes('detalhamento')) {
+                    td.textContent = recadoAtual.detalhamento;
+                }
+            }
+        }
+    }
+
+    formNewRecado.reset();
+
+    localStorage.setItem('recados', JSON.stringify(recados));
 }
 
 function criarRecadosIfNull() {
+
     const userRecados = localStorage.getItem('recados');
 
     if(userRecados === null) {
