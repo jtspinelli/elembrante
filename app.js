@@ -87,8 +87,15 @@ function popularRecadoHtml(recado, index) {
     tableRecados.appendChild(tr);
 }
 
-function excluirRecado() {
-    console.log('exclusão');
+function excluirRecado(event) {
+    const id = event.target.parentElement.parentElement.id;
+    const index = recados.map(e => e.id).indexOf(id);
+
+    recados.splice(index, 1);
+
+    localStorage.setItem('recados', JSON.stringify(recados));
+
+    popularTabelaRecados();
 }
 
 function editarRecado(event) {
@@ -106,23 +113,21 @@ function salvarRecado(recado) {
     recadoAtual.descricao = recado.descricao;
     recadoAtual.detalhamento = recado.detalhamento;
 
-    console.log(recadoAtual);
+    localStorage.setItem('recados', JSON.stringify(recados));
+
+    formNewRecado.reset();
 
     for(let tr of tableRecados.children) {
         if(tr.id === idEdicao.value) {
             for(let td of tr.children) {
                 if(td.classList.value.includes('descricao')) {
-                    td.textContent = recadoAtual.descricao;
+                    td.textContent = recado.descricao;
                 } else if(td.classList.value.includes('detalhamento')) {
-                    td.textContent = recadoAtual.detalhamento;
+                    td.textContent = recado.detalhamento;
                 }
             }
         }
-    }
-
-    formNewRecado.reset();
-
-    localStorage.setItem('recados', JSON.stringify(recados));
+    }    
 }
 
 function criarRecadosIfNull() {
