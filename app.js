@@ -132,12 +132,20 @@ function salvarRecado(recado) {
 
 function criarRecadosIfNull() {
 
-    const userRecados = localStorage.getItem('recados');
+    localStorage.setItem('logged-user', 'jonas');
 
-    if(userRecados === null) {
-        localStorage.setItem('recados', JSON.stringify([]));
+    const user = localStorage.getItem('logged-user');
+
+    if(user === null) {
+        window.location.href = './login.html';
     } else {
-        recados = JSON.parse(userRecados);
-        popularTabelaRecados();
+        const userRecados = localStorage.getItem('recados');
+
+        if(userRecados === null) {
+            localStorage.setItem('recados', JSON.stringify([]));
+        } else {
+            recados = JSON.parse(userRecados);
+            popularTabelaRecados();
+        }
     }
 }
