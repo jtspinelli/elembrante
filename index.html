@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Recados</title>
+    <link rel="stylesheet" href="./css/main.min.css">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <script src="./app.js" defer type="module"></script>
+</head>
+<body>
+    <header>
+        <div class="row">
+            <div class="col">
+                <a href="login.html">Sair</a>
+            </div>
+        </div>        
+    </header>
+    <main>
+        <header>
+            <div class="row">
+                <div class="col">
+                    <h1 class="text-primary">Meus recados</h1>
+                </div>             
+            </div>
+        </header>    
+
+        <form>
+            <div class="row">
+                <div class="col-xl-5 col-md-4 col-12 mb-3 mb-md-0">
+                    <input type="text" class="form-control" id="description" placeholder="descrição">
+                </div>
+
+                <div class="col-md-6 col-sm-12 mb-3 mb-md-0">
+                    <input type="text" class="form-control" id="details" placeholder="detalhamento">
+                </div>
+
+                <div class="col-xl-1 col-md-2 col-sm-12">
+                    <button type="submit" class="btn btn-primary">Salvar</button>   
+                </div>
+            </div>          
+        </form>
+
+        <section id="main-content">
+            <div class="row">
+                <div class="col">
+                    <table class="table table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Descrição</th>
+                            <th scope="col">Detalhamento</th>
+                            <th scope="col">Ação</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">1</th>
+                            <td>Primeiro recado</td>
+                            <td>Fazer tal coisa</td>
+                            <td>
+                                <button class="btn btn-primary">editar</button>
+                                <button class="btn btn-secondary">excluir</button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row">2</th>
+                            <td>Segundo recado</td>
+                            <td>Fazer tal coisa</td>
+                            <td>
+                                <button class="btn btn-primary">editar</button>
+                                <button class="btn btn-secondary">excluir</button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+        </section>
+    </main>    
+</body>
+</html>

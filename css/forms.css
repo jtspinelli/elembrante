@@ -1,0 +1,66 @@
+a {
+    text-decoration: none;
+    font-weight: 500;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+main#login, main#registro {
+    width: 400px;
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);    
+}
+
+/* main#login::before {
+    content: '';
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% + 120px);
+    height: calc(100% + 120px);
+    z-index: -1;
+} */
+
+main#login form, main#registro form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+main#login form p, main#registro form p {
+    padding-top: 20px;
+    text-align: center;
+    margin: 0;
+}
+
+main#login form button, main#registro form button {
+    height: calc(3.5rem + 2px);
+    color: white;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-top: 13px;
+}
+
+@media (max-width: 550px) {
+    main#login, main#registro {
+        width: 90%;
+    }
+
+    main#login::before {
+        width: calc(100% + 50px);
+    }
+}
+
+@media (max-width: 360px) {
+    main#login form p, main#registro form p {
+        display: flex;
+        flex-direction: column;
+    }
+}
