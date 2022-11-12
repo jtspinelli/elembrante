@@ -115,8 +115,6 @@ function salvarRecado(recado) {
 
     localStorage.setItem('recados', JSON.stringify(recados));
 
-    formNewRecado.reset();
-
     for(let tr of tableRecados.children) {
         if(tr.id === idEdicao.value) {
             for(let td of tr.children) {
@@ -127,7 +125,9 @@ function salvarRecado(recado) {
                 }
             }
         }
-    }    
+    }
+
+    formNewRecado.reset();
 }
 
 function criarRecadosIfNull() {
@@ -140,6 +140,4 @@ function criarRecadosIfNull() {
         recados = JSON.parse(userRecados);
         popularTabelaRecados();
     }
-
-    console.log(recados);
 }
