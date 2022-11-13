@@ -162,7 +162,7 @@ function criarRecadosIfNull() {
         window.location.href = './login.html';
     } else {
         getUsers().then(users => {
-            const userName = users.find(e => e.id === localStorage.getItem('logged-user')).firstName;
+            const userName = users.find(e => e.id === localStorage.getItem('logged-user')).username;
             userLabel.textContent = userName;
         })
 

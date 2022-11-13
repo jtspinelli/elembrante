@@ -1,18 +1,25 @@
 const formLogin = document.getElementById('form-login');
 const formLoginUsername = document.getElementById('username');
 const formLoginPassword = document.getElementById('password');
-let users = [];
-
-async function getUsers() {
-    const resultado = await fetch('./users.json');
-    const users = await resultado.json();
-    return users;
-}
+let users = [
+    {
+        username: 'jspinelli',
+        password: 'jts',
+        id: '0c5c8f64-54ae-440d-8c1b-dfc9900dac02'
+    },
+    {
+        username: 'bcarboni',
+        password: 'bca',
+        id: '09165252-0a62-454f-be26-7eaafe38de1b'
+    }
+];
 
 async function getUsernames() {
-    const registeredUsers = await getUsers();
-
-    users = registeredUsers;
+    if(localStorage.getItem('users') === null) {
+        localStorage.setItem('users', JSON.stringify(users));
+    } else {
+        users = JSON.parse(localStorage.getItem('users'))
+    }    
 }
 
 function logar(event) {
@@ -24,15 +31,15 @@ function logar(event) {
         usernameNotEmpty() ? res() : rej();
     });
 
-    const passwordFilled = new Promise((res, rej) => {
-        passwordNotEmpty() ? res() : rej();
+    const passwordCorrect = new Promise((res, rej) => {
+        passwordIsCorrect() ? res() : rej();
     });
 
     const userFound = new Promise((res, rej) => {
         knownUser(username) ? res() : rej();
     });
 
-    Promise.all([userFilled, passwordFilled, userFound])
+    Promise.all([userFilled, passwordCorrect, userFound])
     .then(() => {
         const id = users.find(e => e.username === username).id;
         localStorage.setItem('logged-user', id);
@@ -46,8 +53,9 @@ function usernameNotEmpty() {
     return formLoginUsername.value.length !== 0
 }
 
-function passwordNotEmpty() {
-    return formLoginPassword.value.length !== 0
+function passwordIsCorrect() {
+    return formLoginPassword.value === users.find(e => e.username === formLoginUsername.value).password;
+
 }
 
 function knownUser(username) {
