@@ -18,11 +18,11 @@ let users = [
 
 async function getUsernames() {
     if(semUsuariologado()) {
-        if(localStorage.getItem('users') === null) {
+        if([null, 'null'].includes(localStorage.getItem('users'))) {
             localStorage.setItem('users', JSON.stringify(users));
         } else {
             users = JSON.parse(localStorage.getItem('users'))
-            // console.log('users no localStorage: ', JSON.parse(localStorage.getItem('users')));
+            console.log('users no localStorage: ', JSON.parse(localStorage.getItem('users')));
         }   
     } else {
         window.location.href = './index.html';
