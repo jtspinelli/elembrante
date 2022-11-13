@@ -1,3 +1,5 @@
+import { semUsuariologado } from "./users.js";
+
 const formLogin = document.getElementById('form-login');
 const formLoginUsername = document.getElementById('username');
 const formLoginPassword = document.getElementById('password');
@@ -15,11 +17,16 @@ let users = [
 ];
 
 async function getUsernames() {
-    if(localStorage.getItem('users') === null) {
-        localStorage.setItem('users', JSON.stringify(users));
+    if(semUsuariologado()) {
+        if(localStorage.getItem('users') === null) {
+            localStorage.setItem('users', JSON.stringify(users));
+        } else {
+            users = JSON.parse(localStorage.getItem('users'))
+            // console.log('users no localStorage: ', JSON.parse(localStorage.getItem('users')));
+        }   
     } else {
-        users = JSON.parse(localStorage.getItem('users'))
-    }    
+        window.location.href = './index.html';
+    }
 }
 
 function logar(event) {

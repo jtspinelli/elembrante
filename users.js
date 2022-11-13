@@ -1,6 +1,11 @@
-export async function getUsers() {
-    const resultado = await fetch('./users.json');
-    const users = await resultado.json();
+export function getUsers() {
+    return JSON.parse(localStorage.getItem('users'));
+}
 
-    return users;
+export function semUsuariologado() {
+    return [null, 'null'].includes(localStorage.getItem('logged-user'));
+}
+
+export function temUsuarioLogado() {
+    return !semUsuariologado();
 }

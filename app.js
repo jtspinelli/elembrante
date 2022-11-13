@@ -158,13 +158,12 @@ function salvarRecado(recado) {
 function criarRecadosIfNull() {
     const user = localStorage.getItem('logged-user');
 
-    if(user === null) {
+    if(user === 'null' || user === null ) {
         window.location.href = './login.html';
     } else {
-        getUsers().then(users => {
-            const userName = users.find(e => e.id === localStorage.getItem('logged-user')).username;
-            userLabel.textContent = userName;
-        })
+        const users = getUsers();
+        const userName = users.find(e => e.id === localStorage.getItem('logged-user')).username;
+        userLabel.textContent = userName;
 
         const userRecados = localStorage.getItem('recados');
 
