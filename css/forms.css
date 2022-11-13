@@ -48,6 +48,10 @@ main#login form button, main#registro form button {
     margin-top: 13px;
 }
 
+#registro-messenger {
+    height: 40px;
+}
+
 @media (max-width: 550px) {
     main#login, main#registro {
         width: 90%;

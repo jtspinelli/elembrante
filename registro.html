@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="./css/base.css">
     <link rel="stylesheet" href="./css/forms.css">
     <script src="./registro.js" defer type="module"></script>
+    <script src="./registro-validations.js" defer type="module"></script>
 </head>
 <body class="bg-dark">
     <main id="registro">
@@ -28,7 +29,9 @@
                 <label class="text-light" for="password-repeat">repita senha</label>
               </div>  
 
-              <button type="submit" class="btn btn-primary">Criar conta</button>
+              <button id="registro-submit-button" type="submit" class="btn btn-primary" disabled>Criar conta</button>
+
+              <p class="text-secondary" id="registro-messenger"></p>
 
               <p class="text-light">Já possui conta? <a class="text-primary" href="login.html">Faça login</a></p>     
           </form>

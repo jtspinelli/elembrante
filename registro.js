@@ -37,7 +37,7 @@ function submitRegistro(event) {
 
         window.location.href = './index.html';
     } else {
-        alert('usuário já existe ou senhas não conferem');
+        alert('usuário já existe');
     }
 }
 
