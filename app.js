@@ -24,6 +24,10 @@ function logout(event) {
     window.location.href = "./login.html";
 }
 
+export function recadosArray() {
+    return recados;
+}
+
 function submitForm(event) {
     event.preventDefault();
 
@@ -54,7 +58,7 @@ function criarRecado(recado) {
 
     localStorage.setItem('recados', JSON.stringify(localRecados));
     
-    popularRecadoHtml(recados[recados.length-1], recados.length -1);
+    tableRecados.appendChild(popularRecadoHtml(recados[recados.length-1], recados.length -1));
 
     formNewRecado.reset();
 }
@@ -63,11 +67,11 @@ function popularTabelaRecados() {
     tableRecados.innerHTML = `<tr id='dragging' class='hidden grab-shadow' style='left:0px;'><td></td></tr>`;
 
     recados.filter(e => e.userId === localStorage.getItem('logged-user')).forEach((recado, index) => {
-        popularRecadoHtml(recado, index);
+        tableRecados.appendChild(popularRecadoHtml(recado, index));
     });
 }
 
-function popularRecadoHtml(recado, index) {
+export function popularRecadoHtml(recado, index) {
     const tr = document.createElement('tr');
     tr.id = recado.id;
     // tr.draggable = 'true';
@@ -113,7 +117,8 @@ function popularRecadoHtml(recado, index) {
     tr.appendChild(tdDetalhamento);
     tr.appendChild(tdBotoes);
 
-    tableRecados.appendChild(tr);
+    // tableRecados.appendChild(tr);
+    return tr;
 }
 
 function excluirRecado(event) {
