@@ -22,7 +22,7 @@ async function getUsernames() {
             localStorage.setItem('users', JSON.stringify(users));
         } else {
             users = JSON.parse(localStorage.getItem('users'))
-            console.log('users no localStorage: ', JSON.parse(localStorage.getItem('users')));
+            // console.log('users no localStorage: ', JSON.parse(localStorage.getItem('users')));
         }   
     } else {
         window.location.href = './index.html';
