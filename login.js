@@ -53,7 +53,7 @@ function logar(event) {
 
         window.location.href = './index.html';
     })
-    .catch(() => {console.log("falha");})
+    .catch(() => alert("senha incorreta ou usuário não encontrado"))
 }
 
 function usernameNotEmpty() {
