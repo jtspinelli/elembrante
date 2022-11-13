@@ -115,6 +115,7 @@ export function teste(event) {
         trDragging.style.top = `${event.clientY - 255}px`;
 
 
+        // enquanto não chegar na última linha:
         for(let i = 0; i < trPositionsY.length; i++) {
             if(event.clientY >= trPositionsY[i] && event.clientY < trPositionsY[i+1]) {
                 overTrWas = overTr;
@@ -122,31 +123,31 @@ export function teste(event) {
             }
         }
 
+        // caso chegue na última linha:
         if(event.clientY >= trPositionsY[trPositionsY.length - 1] && event.clientY < trPositionsY[trPositionsY.length - 1] + 55){
             overTrWas = overTr;
             overTr = trPositionsY.length;
         }
 
-        console.log(`OVER TR WAS: ${overTrWas}, NOW: ${overTr}`);
+
+
+        // console.log(`OVER TR WAS: ${overTrWas}, NOW: ${overTr}`);
+
+
 
         if(overTrIncreased()){
-            console.log("AAAAAAAAAAAAAAAAAAA");
-
             if(decreaseCount > 0) {
                 decreaseCount--;
             } else {
                 increaseCount++;
             }            
 
-            console.log(`INCREASED ${increaseCount} TIMES`);
+            console.log(`INCREASE COUNT: ${increaseCount}, DECREASE COUNT: ${decreaseCount}`);
 
             const orderingNum = tableRecados.children[overTr].children[1].textContent;
 
             const trId = tableRecados.children[overTr].id;
             const recado = recadosArray().find(e => e.id === trId);
-
-            console.log("overTr WAS: ", overTrWas);
-            console.log("overTr NOW: ", overTr);
 
             tableRecados.insertBefore(popularRecadoHtml(recado, orderingNum - 1), tableRecados.children[overTrWas]);
 
@@ -161,7 +162,14 @@ export function teste(event) {
 
             console.log(`INCREASE COUNT: ${increaseCount}, DECREASE COUNT: ${decreaseCount}`);
 
-            console.log(`INCREASED ${increaseCount} TIMES`);
+            const orderingNum = tableRecados.children[overTr].children[1].textContent;
+            
+            const trId = tableRecados.children[overTr].id;
+            const recado = recadosArray().find(e => e.id === trId);
+
+            tableRecados.children[overTr].remove();
+
+            tableRecados.insertBefore(popularRecadoHtml(recado, orderingNum - 1), tableRecados.children[overTr+1]);
         }
     }
 }
