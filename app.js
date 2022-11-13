@@ -1,5 +1,6 @@
 import {v4 as uuid} from './node_modules/uuid/dist/esm-browser/index.js';
 import { getUsers } from './users.js';
+import { addGrabbingCursor, addRowShadow, removeRowShadow, removeGrabbingCursor, teste } from './table-row.js';
 
 const formNewRecado = document.getElementById('form-new-recado');
 const formNewRecadoDescricao = document.getElementById('description');
@@ -59,7 +60,7 @@ function criarRecado(recado) {
 }
 
 function popularTabelaRecados() {
-    tableRecados.innerHTML = '';
+    tableRecados.innerHTML = `<tr id='dragging' class='hidden grab-shadow' style='left:0px;'><td></td></tr>`;
 
     recados.filter(e => e.userId === localStorage.getItem('logged-user')).forEach((recado, index) => {
         popularRecadoHtml(recado, index);
@@ -69,10 +70,20 @@ function popularTabelaRecados() {
 function popularRecadoHtml(recado, index) {
     const tr = document.createElement('tr');
     tr.id = recado.id;
+    // tr.draggable = 'true';
 
     const th = document.createElement('th');
     th.scope = 'row';
     th.textContent = index + 1;
+
+    const tdGrab = document.createElement('td');
+    tdGrab.className = 'td-grab';
+    tdGrab.innerHTML = '<svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none; display: block; width: 100%; height: 100%;"><g class="style-scope yt-icon"><path d="M21,10H3V9h18V10z M21,14H3v1h18V14z" class="style-scope yt-icon"></path></g></svg>'
+    tdGrab.addEventListener('mousedown', addGrabbingCursor);
+    tdGrab.addEventListener('mouseup', removeGrabbingCursor);
+    tdGrab.addEventListener('mouseover', addRowShadow);
+    tdGrab.addEventListener('mouseleave', removeRowShadow);
+    // tdGrab.addEventListener('mousemove', teste);
 
     const tdDescricao = document.createElement('td');
     tdDescricao.className = 'descricao';
@@ -96,7 +107,8 @@ function popularRecadoHtml(recado, index) {
     tdBotoes.appendChild(botaoEditar);
     tdBotoes.appendChild(botaoExcluir);    
 
-    tr.appendChild(th);
+    tr.appendChild(tdGrab);
+    tr.appendChild(th);    
     tr.appendChild(tdDescricao);
     tr.appendChild(tdDetalhamento);
     tr.appendChild(tdBotoes);

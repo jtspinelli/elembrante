@@ -42,6 +42,54 @@ table button.btn:not(:last-child) {
 
 table {
     margin: 1rem 0;
+    position: relative;
+}
+
+table thead tr {
+    display: flex;
+}
+
+table #table-recados tr {
+    display: flex;
+}
+
+table #table-recados tr td, table #table-recados tr th {
+    display: flex;
+    align-items: center;
+}
+
+table #table-recados tr td:nth-child(1), table thead tr th:nth-child(1) {
+    width: 38px;
+}
+
+table #table-recados tr th:nth-child(2), table thead tr th:nth-child(2) {
+    width: 60px;
+}
+
+table #table-recados tr td:nth-child(3), table thead tr th:nth-child(3) {
+    width: calc(35% - 32px);
+}
+
+table #table-recados tr td:nth-child(4), table thead tr th:nth-child(4) {
+    width: calc(40% - 32px);
+}
+
+table #table-recados tr td:nth-child(5), table thead tr th:nth-child(5) {
+    width: calc(25% - 32px);
+
+}
+
+.td-grab {
+    cursor: grab;
+    z-index: 1;
+}
+
+.grab-shadow {
+    box-shadow: 0px 2px 8px rgb(0 0 0 / 40%);
+}
+
+.grabbing {
+    cursor: grabbing !important;
 }
 
 table button.btn-primary, table button.btn-secondary {
@@ -54,6 +102,21 @@ tbody tr th, tbody tr td {
 
 #user-label {
     margin-right: 20px;
+}
+
+#dragging {
+    /* background-color: #4ab354; */
+    background-color: whitesmoke;
+    position: absolute;
+    cursor: grabbing;
+    user-select: none;
+    width: 100%;
+    height: 54px;
+    z-index: 2;
+}
+
+#dragging.hidden {
+    display: none;
 }
 
 @media (max-width: 1570px) {
@@ -92,12 +155,12 @@ tbody tr th, tbody tr td {
         width: 40px;
     }
 
-    tbody tr td:nth-child(2) {
-        width: calc(100% - 40px);
+    tbody tr td:nth-child(3) {
+        width: calc(100% - 81px);
         padding-left: 0;
     }
 
-    tbody tr td:nth-child(3) {
+    tbody tr td:nth-child(4) {
         width: 100%;
         min-height: 70px;
     }
