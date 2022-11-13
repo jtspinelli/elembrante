@@ -1,16 +1,27 @@
 import {v4 as uuid} from './node_modules/uuid/dist/esm-browser/index.js';
+import { getUsers } from './users.js';
 
 const formNewRecado = document.getElementById('form-new-recado');
 const formNewRecadoDescricao = document.getElementById('description');
 const formNewRecadoDetalhamento = document.getElementById('details');
 const tableRecados = document.getElementById('table-recados');
 const idEdicao = document.getElementById('id-edicao');
+const logoutButton = document.getElementById('exit');
+const userLabel = document.getElementById('user-label');
 let recados = [];
 
 
 window.addEventListener('load', criarRecadosIfNull);
 formNewRecado.addEventListener('submit', submitForm);
+logoutButton.addEventListener('click', logout);
 
+function logout(event) {
+    event.preventDefault();
+
+    localStorage.setItem('logged-user', null);
+
+    window.location.href = "./login.html";
+}
 
 function submitForm(event) {
     event.preventDefault();
@@ -33,8 +44,14 @@ function criacao() {
 }
 
 function criarRecado(recado) {
+    recado.userId = localStorage.getItem('logged-user');
+
     recados.push(recado);
-    localStorage.setItem('recados', JSON.stringify(recados));
+
+    const localRecados = JSON.parse(localStorage.getItem('recados'));
+    localRecados.push(recado);
+
+    localStorage.setItem('recados', JSON.stringify(localRecados));
     
     popularRecadoHtml(recados[recados.length-1], recados.length -1);
 
@@ -44,7 +61,7 @@ function criarRecado(recado) {
 function popularTabelaRecados() {
     tableRecados.innerHTML = '';
 
-    recados.forEach((recado, index) => {
+    recados.filter(e => e.userId === localStorage.getItem('logged-user')).forEach((recado, index) => {
         popularRecadoHtml(recado, index);
     });
 }
@@ -93,7 +110,11 @@ function excluirRecado(event) {
 
     recados.splice(index, 1);
 
-    localStorage.setItem('recados', JSON.stringify(recados));
+    const localRecados = JSON.parse(localStorage.getItem('recados'));
+    const indexNoLocalRecados = localRecados.map(e => e.id).indexOf(id);
+    localRecados.splice(indexNoLocalRecados, 1);    
+
+    localStorage.setItem('recados', JSON.stringify(localRecados));
 
     popularTabelaRecados();
 }
@@ -105,7 +126,6 @@ function editarRecado(event) {
     formNewRecadoDescricao.value = recado.descricao;
     formNewRecadoDetalhamento.value = recado.detalhamento;
     idEdicao.value = recado.id;
-
 }
 
 function salvarRecado(recado) {
@@ -113,7 +133,12 @@ function salvarRecado(recado) {
     recadoAtual.descricao = recado.descricao;
     recadoAtual.detalhamento = recado.detalhamento;
 
-    localStorage.setItem('recados', JSON.stringify(recados));
+    const localRecados = JSON.parse(localStorage.getItem('recados'));
+    const localRecado = localRecados.find(e => e.id === idEdicao.value);
+    localRecado.descricao = recado.descricao;
+    localRecado.detalhamento = recado.detalhamento;    
+
+    localStorage.setItem('recados', JSON.stringify(localRecados));
 
     for(let tr of tableRecados.children) {
         if(tr.id === idEdicao.value) {
@@ -131,20 +156,22 @@ function salvarRecado(recado) {
 }
 
 function criarRecadosIfNull() {
-
-    localStorage.setItem('logged-user', 'jonas');
-
     const user = localStorage.getItem('logged-user');
 
     if(user === null) {
         window.location.href = './login.html';
     } else {
+        getUsers().then(users => {
+            const userName = users.find(e => e.id === localStorage.getItem('logged-user')).firstName;
+            userLabel.textContent = userName;
+        })
+
         const userRecados = localStorage.getItem('recados');
 
         if(userRecados === null) {
             localStorage.setItem('recados', JSON.stringify([]));
         } else {
-            recados = JSON.parse(userRecados);
+            recados = JSON.parse(userRecados).filter(e => e.userId === localStorage.getItem('logged-user'));
             popularTabelaRecados();
         }
     }

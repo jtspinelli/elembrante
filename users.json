@@ -5,5 +5,12 @@
         "email": "contato@jonathanspinelli.com",
         "username": "jspinelli",
         "id": "0c5c8f64-54ae-440d-8c1b-dfc9900dac02"
+    },
+    {
+        "firstName": "Bárbara",
+        "lastName": "Carboni",
+        "email": "barbara@carboni.com",
+        "username": "bcarboni",
+        "id": "09165252-0a62-454f-be26-7eaafe38de1b"
     }
 ]

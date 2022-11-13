@@ -52,6 +52,10 @@ tbody tr th, tbody tr td {
     vertical-align: middle;
 }
 
+#user-label {
+    margin-right: 20px;
+}
+
 @media (max-width: 1570px) {
     main, body > header {
         width: 95%;
