@@ -66,6 +66,16 @@ function criarRecado(recado) {
 function popularTabelaRecados() {
     tableRecados.innerHTML = `<tr id='dragging' class='hidden grab-shadow' style='left:0px;'><td></td></tr>`;
 
+
+    // ordenar recados pela propriedade 'ordenador' ascendentemente:
+    recados.sort((a, b) => {
+        if(b.ordenador < a.ordenador) {
+            return 1
+        } else {
+            return -1
+        }
+    });
+
     recados.filter(e => e.userId === localStorage.getItem('logged-user')).forEach((recado, index) => {
         tableRecados.appendChild(popularRecadoHtml(recado, index));
     });

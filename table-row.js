@@ -10,33 +10,63 @@ let clickedTr = 1;
 let increased = false;
 let increaseCount = 0;
 let decreaseCount = 0;
-let nextTrId;
 
 document.body.addEventListener('mouseup', () => {
-    document.body.classList.remove('grabbing');
-    isGrabbing = false;
+    if(isGrabbing) {
+        document.body.classList.remove('grabbing');
+        isGrabbing = false;
 
-    tableRecados.style = '';
+        tableRecados.style = '';
 
-    const trDragging = document.getElementById('dragging');
-    trDragging.classList.add('hidden');
+        const trDragging = document.getElementById('dragging');
+        trDragging.classList.add('hidden');
 
-    // RESETS:
-    increaseCount = 0;
-    increased = false;
-    //////
+        // RESETS:
+        increaseCount = 0;
+        increased = false;
+        //////
 
-    for(let tr of tableRecados.children) {
-        if(tr.style.visibility === 'hidden') {
-            tr.style = '';
+        const novaOrdemDosRecados = [];
+
+        let index = 0;
+
+        for(let tr of tableRecados.children) {
+            if(tr.style.visibility === 'hidden') {
+                tr.style = '';
+            }
+
+            if(tr.children[0].classList.value.includes('grabbing')) {
+                tr.children[0].classList.remove('grabbing');
+            }
+
+            tr.removeAttribute('stay-visible');
+
+            if(tr.id !== 'dragging') {
+                novaOrdemDosRecados.push(tr.id);
+            }
+
+            
+            
+            tr.children[1].textContent = index;
+            index++;
         }
 
-        if(tr.children[0].classList.value.includes('grabbing')) {
-            tr.children[0].classList.remove('grabbing');
-        }
+        const recadosReordenados = [];
 
-        tr.removeAttribute('stay-visible')
+        recadosArray().forEach((_, i, recados) => {
+            const a = recados.find(e => e.id === novaOrdemDosRecados[i]);
+            recadosReordenados.push(a);
+        });
+
+        const recadosNoLocalStorage = JSON.parse(localStorage.getItem('recados'));
+
+        recadosReordenados.forEach((recado, i) => {
+            recadosNoLocalStorage.find(e => e.id === recado.id).ordenador = (i + 1);
+        })
+
+        localStorage.setItem('recados', JSON.stringify(recadosNoLocalStorage));
     }
+
 });
 
 document.body.addEventListener('mousemove', teste);
