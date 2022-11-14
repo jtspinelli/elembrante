@@ -1,5 +1,6 @@
 import {v4 as uuid} from './node_modules/uuid/dist/esm-browser/index.js';
 import { getUsers } from './users.js';
+import { addGrabbingCursor, addRowShadow, removeRowShadow, removeGrabbingCursor } from './table-row.js';
 
 const formNewRecado = document.getElementById('form-new-recado');
 const formNewRecadoDescricao = document.getElementById('description');
@@ -21,6 +22,10 @@ function logout(event) {
     localStorage.setItem('logged-user', null);
 
     window.location.href = "./login.html";
+}
+
+export function recadosArray() {
+    return recados;
 }
 
 function submitForm(event) {
@@ -45,6 +50,7 @@ function criacao() {
 
 function criarRecado(recado) {
     recado.userId = localStorage.getItem('logged-user');
+    recado.ordenador = recados.length + 1;
 
     recados.push(recado);
 
@@ -53,26 +59,52 @@ function criarRecado(recado) {
 
     localStorage.setItem('recados', JSON.stringify(localRecados));
     
-    popularRecadoHtml(recados[recados.length-1], recados.length -1);
+    tableRecados.appendChild(popularRecadoHtml(recados[recados.length-1], recados.length -1));
 
     formNewRecado.reset();
 }
 
+// export function reordenarRecadosVariable(recadosReordenados) {
+//     recadosReordenados.forEach((recado, i) => {
+//        console.log(recado);
+//     })
+// }
+
 function popularTabelaRecados() {
-    tableRecados.innerHTML = '';
+    tableRecados.innerHTML = `<tr id='dragging' class='hidden grab-shadow' style='left:0px;'><td></td></tr>`;
+
+
+    // ordenar recados pela propriedade 'ordenador' ascendentemente:
+    recados.sort((a, b) => {
+        if(b.ordenador < a.ordenador) {
+            return 1
+        } else {
+            return -1
+        }
+    });
 
     recados.filter(e => e.userId === localStorage.getItem('logged-user')).forEach((recado, index) => {
-        popularRecadoHtml(recado, index);
+        tableRecados.appendChild(popularRecadoHtml(recado, index));
     });
 }
 
-function popularRecadoHtml(recado, index) {
+export function popularRecadoHtml(recado, index) {
     const tr = document.createElement('tr');
     tr.id = recado.id;
+    // tr.draggable = 'true';
 
     const th = document.createElement('th');
     th.scope = 'row';
     th.textContent = index + 1;
+
+    const tdGrab = document.createElement('td');
+    tdGrab.className = 'td-grab';
+    tdGrab.innerHTML = '<svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none; display: block; width: 100%; height: 100%;"><g class="style-scope yt-icon"><path d="M21,10H3V9h18V10z M21,14H3v1h18V14z" class="style-scope yt-icon"></path></g></svg>'
+    tdGrab.addEventListener('mousedown', addGrabbingCursor);
+    tdGrab.addEventListener('mouseup', removeGrabbingCursor);
+    tdGrab.addEventListener('mouseover', addRowShadow);
+    tdGrab.addEventListener('mouseleave', removeRowShadow);
+    // tdGrab.addEventListener('mousemove', teste);
 
     const tdDescricao = document.createElement('td');
     tdDescricao.className = 'descricao';
@@ -96,27 +128,57 @@ function popularRecadoHtml(recado, index) {
     tdBotoes.appendChild(botaoEditar);
     tdBotoes.appendChild(botaoExcluir);    
 
-    tr.appendChild(th);
+    tr.appendChild(tdGrab);
+    tr.appendChild(th);    
     tr.appendChild(tdDescricao);
     tr.appendChild(tdDetalhamento);
     tr.appendChild(tdBotoes);
 
-    tableRecados.appendChild(tr);
+    // tableRecados.appendChild(tr);
+    return tr;
 }
 
 function excluirRecado(event) {
     const id = event.target.parentElement.parentElement.id;
-    const index = recados.map(e => e.id).indexOf(id);
+    const index = recados.map(e => e.id).indexOf(id);    
+
+    console.log(index);    
+
+    const ordenadorDoDeletado = recados[index].ordenador;
+
+    console.log(`ordenadorDoDeletado: ${ordenadorDoDeletado}`);
 
     recados.splice(index, 1);
 
+
+    // ajustar ordenadores
+    recados.forEach(recado => {
+        if(recado.ordenador > ordenadorDoDeletado) {
+            recado.ordenador--;
+        }
+    })
+
     const localRecados = JSON.parse(localStorage.getItem('recados'));
     const indexNoLocalRecados = localRecados.map(e => e.id).indexOf(id);
-    localRecados.splice(indexNoLocalRecados, 1);    
+
+    
+    localRecados.splice(indexNoLocalRecados, 1); 
+    const localRecadosDoUser = localRecados.filter(e => e.userId === localStorage.getItem('logged-user'));
+
+    localRecadosDoUser.forEach(recado => {
+        if(recado.ordenador > ordenadorDoDeletado) {
+            recado.ordenador--;
+        }
+    })
 
     localStorage.setItem('recados', JSON.stringify(localRecados));
 
     popularTabelaRecados();
+}
+
+export function atualizarOrdenadoresNaVariableRecados(recadosReordenados) {
+    const recadosDoUser = recadosReordenados.filter(e => e.userId === localStorage.getItem('logged-user'));
+    recados = recadosDoUser;
 }
 
 function editarRecado(event) {
