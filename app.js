@@ -1,7 +1,7 @@
 import {v4 as uuid} from './node_modules/uuid/dist/esm-browser/index.js';
-import { getUsers, semUsuarioLogado, loggedUser } from './users.js';
+import { getUsers, semUsuarioLogado, loggedUser, logoutUser } from './users.js';
 import { addGrabbingCursor, addRowShadow, removeRowShadow, removeGrabbingCursor } from './table-row.js';
-import { getRecadosFromLocalStorage, semRecadosNoLocalStorage, inicializarRecadosNoLocalStorage, getRecadosFromLoggedUser } from './recados.js';
+import { semRecadosNoLocalStorage, inicializarRecadosNoLocalStorage,  getRecadosFromLocalStorage, getRecadosFromLoggedUser, sobreporRecadosNoLocalStorage } from './recados.js';
 
 const formNewRecado = document.getElementById('form-new-recado');
 const formNewRecadoDescricao = document.getElementById('description');
@@ -19,10 +19,8 @@ logoutButton.addEventListener('click', logout);
 
 function logout(event) {
     event.preventDefault();
-
-    localStorage.setItem('logged-user', null);
-
-    window.location.href = "./login.html";
+    logoutUser();
+    redirectTo('login');
 }
 
 export function recadosArray() {
@@ -37,7 +35,7 @@ function submitForm(event) {
         detalhamento: event.target.details.value
     }
     
-    if(criacao()) {
+    if(isCriacao()) {
         recado.id = uuid();
         criarRecado(recado);
     } else {
@@ -45,31 +43,30 @@ function submitForm(event) {
     }
 }
 
-function criacao() {
+function isCriacao() {
     return idEdicao.value.length === 0;
 }
 
 function criarRecado(recado) {
-    recado.userId = localStorage.getItem('logged-user');
+    recado.userId = loggedUser();
     recado.ordenador = recados.length + 1;
 
-    recados.push(recado);
+    recados.push(recado); // adicionar novo recado no array recados
 
-    const localRecados = JSON.parse(localStorage.getItem('recados'));
-    localRecados.push(recado);
-
-    localStorage.setItem('recados', JSON.stringify(localRecados));
-    
-    tableRecados.appendChild(popularRecadoHtml(recados[recados.length-1], recados.length -1));
+    addNovoRecadoNoLocalStorage(recado); 
+    addNovoRecadoNaTable();
 
     formNewRecado.reset();
 }
 
-// export function reordenarRecadosVariable(recadosReordenados) {
-//     recadosReordenados.forEach((recado, i) => {
-//        console.log(recado);
-//     })
-// }
+function addNovoRecadoNaTable() {
+    tableRecados.appendChild(popularRecadoHtml(recados[recados.length-1], recados.length -1));
+}
+
+function addNovoRecadoNoLocalStorage(recado) {
+    const recadosAtualizados = JSON.parse(getRecadosFromLocalStorage()).concat([recado]); // adicionar novo recado em um array temporario
+    sobreporRecadosNoLocalStorage(recadosAtualizados);
+}
 
 function popularTabelaRecados() {
     tableRecados.innerHTML = `<tr id='dragging' class='hidden grab-shadow' style='left:0px;'><td></td></tr>`;
@@ -237,3 +234,5 @@ function criarRecadosIfNull() {
 function redirectTo(page) {
     window.location.href = `./${page}.html`;
 }
+
+// console.log(localStorage.getItem('recados'));

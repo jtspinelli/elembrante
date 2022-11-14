@@ -1,4 +1,4 @@
-import { semUsuariologado } from "./users.js";
+import { semUsuarioLogado } from "./users.js";
 
 const formLogin = document.getElementById('form-login');
 const formLoginUsername = document.getElementById('username');
@@ -17,7 +17,7 @@ let users = [
 ];
 
 async function getUsernames() {
-    if(semUsuariologado()) {
+    if(semUsuarioLogado()) {
         if([null, 'null'].includes(localStorage.getItem('users'))) {
             localStorage.setItem('users', JSON.stringify(users));
         } else {

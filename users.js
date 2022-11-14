@@ -13,3 +13,7 @@ export function semUsuarioLogado() {
 export function temUsuarioLogado() {
     return !semUsuarioLogado();
 }
+
+export function logoutUser() {
+    localStorage.removeItem('logged-user');
+}

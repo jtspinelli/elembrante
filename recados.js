@@ -15,3 +15,7 @@ export function inicializarRecadosNoLocalStorage() {
 export function getRecadosFromLoggedUser() {
     return JSON.parse(getRecadosFromLocalStorage()).filter(e => e.userId === loggedUser());
 }
+
+export function sobreporRecadosNoLocalStorage(recados) {
+    localStorage.setItem('recados', JSON.stringify(recados));
+}
