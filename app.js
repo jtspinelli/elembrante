@@ -1,6 +1,6 @@
 import {v4 as uuid} from './node_modules/uuid/dist/esm-browser/index.js';
 import { getUsers } from './users.js';
-import { addGrabbingCursor, addRowShadow, removeRowShadow, removeGrabbingCursor, teste } from './table-row.js';
+import { addGrabbingCursor, addRowShadow, removeRowShadow, removeGrabbingCursor } from './table-row.js';
 
 const formNewRecado = document.getElementById('form-new-recado');
 const formNewRecadoDescricao = document.getElementById('description');
@@ -50,6 +50,7 @@ function criacao() {
 
 function criarRecado(recado) {
     recado.userId = localStorage.getItem('logged-user');
+    recado.ordenador = recados.length + 1;
 
     recados.push(recado);
 
