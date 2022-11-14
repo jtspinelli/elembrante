@@ -10,7 +10,7 @@ formRegistro.addEventListener('submit', submitRegistro);
 
 window.addEventListener('load', () => {
     if(temUsuarioLogado()) {
-        window.location.href = './index.html';
+        window.location.href = '/recados';
     }
 })
 
