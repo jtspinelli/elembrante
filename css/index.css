@@ -45,6 +45,10 @@ table {
     position: relative;
 }
 
+tbody {
+    position: relative;
+}
+
 table thead tr {
     display: flex;
 }
@@ -126,6 +130,12 @@ tbody tr th, tbody tr td {
     }
 }
 
+@media (max-width: 991px) {
+    table #table-recados tr td:nth-child(5) {
+        width: calc(30% - 32px);
+    }
+}
+
 @media (max-width: 767px) {
     thead {
         display: none;
@@ -155,6 +165,10 @@ tbody tr th, tbody tr td {
         width: 40px;
     }
 
+    #dragging {
+        height: unset;
+    }
+
     tbody tr td:nth-child(3) {
         width: calc(100% - 81px);
         padding-left: 0;
@@ -173,4 +187,11 @@ tbody tr th, tbody tr td {
         z-index: 1; 
     }
 
+    table #table-recados tr td:nth-child(3) {
+        width: calc(100% - 98px);
+    }
+
+    table #table-recados tr td:nth-child(4), table #table-recados tr td:nth-child(5) {
+        width: 100%;
+    }
 }
