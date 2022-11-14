@@ -64,6 +64,12 @@ function criarRecado(recado) {
     formNewRecado.reset();
 }
 
+// export function reordenarRecadosVariable(recadosReordenados) {
+//     recadosReordenados.forEach((recado, i) => {
+//        console.log(recado);
+//     })
+// }
+
 function popularTabelaRecados() {
     tableRecados.innerHTML = `<tr id='dragging' class='hidden grab-shadow' style='left:0px;'><td></td></tr>`;
 
@@ -134,17 +140,45 @@ export function popularRecadoHtml(recado, index) {
 
 function excluirRecado(event) {
     const id = event.target.parentElement.parentElement.id;
-    const index = recados.map(e => e.id).indexOf(id);
+    const index = recados.map(e => e.id).indexOf(id);    
+
+    console.log(index);    
+
+    const ordenadorDoDeletado = recados[index].ordenador;
+
+    console.log(`ordenadorDoDeletado: ${ordenadorDoDeletado}`);
 
     recados.splice(index, 1);
 
+
+    // ajustar ordenadores
+    recados.forEach(recado => {
+        if(recado.ordenador > ordenadorDoDeletado) {
+            recado.ordenador--;
+        }
+    })
+
     const localRecados = JSON.parse(localStorage.getItem('recados'));
     const indexNoLocalRecados = localRecados.map(e => e.id).indexOf(id);
-    localRecados.splice(indexNoLocalRecados, 1);    
+
+    
+    localRecados.splice(indexNoLocalRecados, 1); 
+    const localRecadosDoUser = localRecados.filter(e => e.userId === localStorage.getItem('logged-user'));
+
+    localRecadosDoUser.forEach(recado => {
+        if(recado.ordenador > ordenadorDoDeletado) {
+            recado.ordenador--;
+        }
+    })
 
     localStorage.setItem('recados', JSON.stringify(localRecados));
 
     popularTabelaRecados();
+}
+
+export function atualizarOrdenadoresNaVariableRecados(recadosReordenados) {
+    const recadosDoUser = recadosReordenados.filter(e => e.userId === localStorage.getItem('logged-user'));
+    recados = recadosDoUser;
 }
 
 function editarRecado(event) {

@@ -1,4 +1,4 @@
-import { recadosArray, popularRecadoHtml } from './app.js';
+import { recadosArray, popularRecadoHtml, atualizarOrdenadoresNaVariableRecados } from './app.js';
 
 let isGrabbing = false;
 const tableRecados = document.getElementById('table-recados');
@@ -58,11 +58,15 @@ document.body.addEventListener('mouseup', () => {
             recadosReordenados.push(a);
         });
 
+        
+
         const recadosNoLocalStorage = JSON.parse(localStorage.getItem('recados'));
 
         recadosReordenados.forEach((recado, i) => {
             recadosNoLocalStorage.find(e => e.id === recado.id).ordenador = (i + 1);
         })
+
+        atualizarOrdenadoresNaVariableRecados(recadosNoLocalStorage);
 
         localStorage.setItem('recados', JSON.stringify(recadosNoLocalStorage));
     }
