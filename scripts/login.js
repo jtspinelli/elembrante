@@ -1,4 +1,4 @@
-import { semUsuarioLogado } from "../users.js";
+import { semUsuarioLogado } from "./users.js";
 
 const formLogin = document.getElementById('form-login');
 const formLoginUsername = document.getElementById('username');
