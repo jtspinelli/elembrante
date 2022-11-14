@@ -17,6 +17,11 @@ window.addEventListener('load', criarRecadosIfNull);
 formNewRecado.addEventListener('submit', submitForm);
 logoutButton.addEventListener('click', logout);
 
+
+function redirectTo(page) {
+    window.location.href = `./${page}.html`;
+}
+
 function logout(event) {
     event.preventDefault();
     logoutUser();
@@ -77,6 +82,15 @@ function addNovoRecadoNoLocalStorage(recado) {
 
 
 // EDITAR RECADO
+function editarRecado(event) {
+    const id = event.target.parentElement.parentElement.id;
+    const recado = recados.find(e => e.id === id);
+    
+    formNewRecadoDescricao.value = recado.descricao;
+    formNewRecadoDetalhamento.value = recado.detalhamento;
+    idEdicao.value = recado.id;
+}
+
 function salvarRecado(recado) {
     atualizarNoArrayRecados(recado);
     atualizarNoLocalStorage(recado);
@@ -189,58 +203,53 @@ export function popularRecadoHtml(recado, index) {
 
 
 
-
+// EXCLUIR RECADO
 function excluirRecado(event) {
     const id = event.target.parentElement.parentElement.id;
-    const index = recados.map(e => e.id).indexOf(id);    
+    const index = recados.map(e => e.id).indexOf(id);
+    const ordenadorDoRecadoExcluido = recados[index].ordenador;
 
-    console.log(index);    
-
-    const ordenadorDoDeletado = recados[index].ordenador;
-
-    console.log(`ordenadorDoDeletado: ${ordenadorDoDeletado}`);
-
-    recados.splice(index, 1);
-
-
-    // ajustar ordenadores
-    recados.forEach(recado => {
-        if(recado.ordenador > ordenadorDoDeletado) {
-            recado.ordenador--;
-        }
-    })
-
-    const localRecados = JSON.parse(localStorage.getItem('recados'));
-    const indexNoLocalRecados = localRecados.map(e => e.id).indexOf(id);
-
-    
-    localRecados.splice(indexNoLocalRecados, 1); 
-    const localRecadosDoUser = localRecados.filter(e => e.userId === localStorage.getItem('logged-user'));
-
-    localRecadosDoUser.forEach(recado => {
-        if(recado.ordenador > ordenadorDoDeletado) {
-            recado.ordenador--;
-        }
-    })
-
-    localStorage.setItem('recados', JSON.stringify(localRecados));
+    removerDoArrayRecados(index, ordenadorDoRecadoExcluido);
+    removerDoLocalStorage(id, ordenadorDoRecadoExcluido);
 
     popularTabelaRecados();
 }
 
+function removerDoLocalStorage(id, ordenadorDoRecadoExcluido) {
+    const localRecados = JSON.parse(getRecadosFromLocalStorage());
+    const indexNoLocalRecados = localRecados.map(e => e.id).indexOf(id);
+    
+    localRecados.splice(indexNoLocalRecados, 1);
+
+    const localRecadosDoUser = localRecados.filter(e => e.userId === loggedUser());
+    ajustarOrdenadores(localRecadosDoUser, ordenadorDoRecadoExcluido);
+
+    sobreporRecadosNoLocalStorage(localRecados);
+}
+
+function removerDoArrayRecados(index, ordenadorDoRecadoExcluido) {
+    recados.splice(index, 1);
+    ajustarOrdenadores(recados, ordenadorDoRecadoExcluido);
+}
+
+function ajustarOrdenadores(array, ordenadorDoRecadoExcluido) {
+    array.forEach(recado => {
+        if(recado.ordenador > ordenadorDoRecadoExcluido) {
+            recado.ordenador--;
+        }
+    })
+}
+
+
+
+
+// ATUALIZAR ORDENADORES: caso usuario reordene no front
 export function atualizarOrdenadoresNaVariableRecados(recadosReordenados) {
     const recadosDoUser = recadosReordenados.filter(e => e.userId === localStorage.getItem('logged-user'));
     recados = recadosDoUser;
 }
 
-function editarRecado(event) {
-    const id = event.target.parentElement.parentElement.id;
-    const recado = recados.find(e => e.id === id);
-    
-    formNewRecadoDescricao.value = recado.descricao;
-    formNewRecadoDetalhamento.value = recado.detalhamento;
-    idEdicao.value = recado.id;
-}
+
 
 
 
@@ -259,9 +268,3 @@ function criarRecadosIfNull() {
         }
     }
 }
-
-function redirectTo(page) {
-    window.location.href = `./${page}.html`;
-}
-
-// console.log(localStorage.getItem('recados'));
