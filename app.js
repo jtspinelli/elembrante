@@ -117,11 +117,9 @@ function atualizarNoLocalStorage(recado) {
 
 
 
-
-function popularTabelaRecados() {
-    tableRecados.innerHTML = `<tr id='dragging' class='hidden grab-shadow' style='left:0px;'><td></td></tr>`;
-
-    // ordenar recados pela propriedade 'ordenador' ascendentemente:
+//POPULAR TABELA DE RECADOS
+//ordena os recados pela propriedade 'ordenador'
+function ordenarRecados() {
     recados.sort((a, b) => {
         if(b.ordenador < a.ordenador) {
             return 1
@@ -129,8 +127,14 @@ function popularTabelaRecados() {
             return -1
         }
     });
+}
 
-    recados.filter(e => e.userId === localStorage.getItem('logged-user')).forEach((recado, index) => {
+function popularTabelaRecados() {
+    tableRecados.innerHTML = `<tr id='dragging' class='hidden grab-shadow' style='left:0px;'><td></td></tr>`;
+    
+    ordenarRecados();
+
+    recados.filter(e => e.userId === loggedUser()).forEach((recado, index) => {
         tableRecados.appendChild(popularRecadoHtml(recado, index));
     });
 }
@@ -138,7 +142,6 @@ function popularTabelaRecados() {
 export function popularRecadoHtml(recado, index) {
     const tr = document.createElement('tr');
     tr.id = recado.id;
-    // tr.draggable = 'true';
 
     const th = document.createElement('th');
     th.scope = 'row';
@@ -151,7 +154,6 @@ export function popularRecadoHtml(recado, index) {
     tdGrab.addEventListener('mouseup', removeGrabbingCursor);
     tdGrab.addEventListener('mouseover', addRowShadow);
     tdGrab.addEventListener('mouseleave', removeRowShadow);
-    // tdGrab.addEventListener('mousemove', teste);
 
     const tdDescricao = document.createElement('td');
     tdDescricao.className = 'descricao';
@@ -181,9 +183,12 @@ export function popularRecadoHtml(recado, index) {
     tr.appendChild(tdDetalhamento);
     tr.appendChild(tdBotoes);
 
-    // tableRecados.appendChild(tr);
     return tr;
 }
+
+
+
+
 
 function excluirRecado(event) {
     const id = event.target.parentElement.parentElement.id;
