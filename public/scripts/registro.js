@@ -34,7 +34,7 @@ function submitRegistro(event) {
         localStorage.setItem('users', JSON.stringify(localUsers));
         localStorage.setItem('logged-user', id);
 
-        window.location.href = './index.html';
+        window.location.href = 'recados';
     } else {
         alert('usuário já existe');
     }
