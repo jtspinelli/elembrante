@@ -13,7 +13,7 @@ const userLabel = document.getElementById('user-label');
 let recados = [];
 
 
-window.addEventListener('load', criarRecadosIfNull);
+window.addEventListener('load', init);
 formNewRecado.addEventListener('submit', submitForm);
 logoutButton.addEventListener('click', logout);
 
@@ -251,20 +251,25 @@ export function atualizarOrdenadoresNaVariableRecados(recadosReordenados) {
 
 
 
-
-
-function criarRecadosIfNull() {
+function init() {
     if(semUsuarioLogado()) {
         redirectTo('login');
     } else {
-        const userName = getUsers().find(e => e.id === loggedUser()).username;
-        userLabel.textContent = userName;
+        setarUserLabel();
+        setarRecados();
+    }
+}
 
-        if(semRecadosNoLocalStorage()) {
-            inicializarRecadosNoLocalStorage();
-        } else {
-            recados = getRecadosFromLoggedUser();
-            popularTabelaRecados();
-        }
+function setarUserLabel() {
+    const userName = getUsers().find(e => e.id === loggedUser()).username;
+    userLabel.textContent = userName;
+}
+
+function setarRecados() {   
+    if(semRecadosNoLocalStorage()) {
+        inicializarRecadosNoLocalStorage();
+    } else {
+        recados = getRecadosFromLoggedUser();
+        popularTabelaRecados();
     }
 }
