@@ -1,4 +1,4 @@
-import {v4 as uuid} from '../node_modules/uuid/dist/esm-browser/index.js';
+import {v4 as uuid} from '/uuid/dist/esm-browser/index.js';
 import { getUsers, temUsuarioLogado } from './users.js';
 
 const formRegistro = document.getElementById('form-registro');

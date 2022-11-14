@@ -25,7 +25,7 @@ async function getUsernames() {
             // console.log('users no localStorage: ', JSON.parse(localStorage.getItem('users')));
         }   
     } else {
-        window.location.href = './index.html';
+        window.location.href = '/recados';
     }
 }
 
@@ -51,7 +51,7 @@ function logar(event) {
         const id = users.find(e => e.username === username).id;
         localStorage.setItem('logged-user', id);
 
-        window.location.href = './index.html';
+        window.location.href = '/recados';
     })
     .catch(() => alert("senha incorreta ou usuário não encontrado"))
 }
