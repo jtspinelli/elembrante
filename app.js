@@ -47,6 +47,11 @@ function isCriacao() {
     return idEdicao.value.length === 0;
 }
 
+
+
+
+
+// CRIAR RECADO
 function criarRecado(recado) {
     recado.userId = loggedUser();
     recado.ordenador = recados.length + 1;
@@ -68,9 +73,53 @@ function addNovoRecadoNoLocalStorage(recado) {
     sobreporRecadosNoLocalStorage(recadosAtualizados);
 }
 
+
+
+
+// EDITAR RECADO
+function salvarRecado(recado) {
+    atualizarNoArrayRecados(recado);
+    atualizarNoLocalStorage(recado);
+    atualizarRecadoNaTable(recado);
+
+    formNewRecado.reset();
+}
+
+function atualizarRecadoNaTable(recado) {
+    for(let tr of tableRecados.children) {
+        if(tr.id === idEdicao.value) {
+            for(let td of tr.children) {
+                if(td.classList.value.includes('descricao')) {
+                    td.textContent = recado.descricao;
+                } else if(td.classList.value.includes('detalhamento')) {
+                    td.textContent = recado.detalhamento;
+                }
+            }
+        }
+    }
+}
+
+function atualizarNoArrayRecados(recado) {
+    const recadoParaAtualizar = recados.find(e => e.id === idEdicao.value);
+    recadoParaAtualizar.descricao = recado.descricao;
+    recadoParaAtualizar.detalhamento = recado.detalhamento;
+}
+
+function atualizarNoLocalStorage(recado) {
+    const localRecados = JSON.parse(getRecadosFromLocalStorage());
+    const localRecado = localRecados.find(e => e.id === idEdicao.value);
+    localRecado.descricao = recado.descricao;
+    localRecado.detalhamento = recado.detalhamento;    
+
+    sobreporRecadosNoLocalStorage(localRecados);
+}
+
+
+
+
+
 function popularTabelaRecados() {
     tableRecados.innerHTML = `<tr id='dragging' class='hidden grab-shadow' style='left:0px;'><td></td></tr>`;
-
 
     // ordenar recados pela propriedade 'ordenador' ascendentemente:
     recados.sort((a, b) => {
@@ -188,32 +237,7 @@ function editarRecado(event) {
     idEdicao.value = recado.id;
 }
 
-function salvarRecado(recado) {
-    const recadoAtual = recados.find(e => e.id === idEdicao.value);
-    recadoAtual.descricao = recado.descricao;
-    recadoAtual.detalhamento = recado.detalhamento;
 
-    const localRecados = JSON.parse(localStorage.getItem('recados'));
-    const localRecado = localRecados.find(e => e.id === idEdicao.value);
-    localRecado.descricao = recado.descricao;
-    localRecado.detalhamento = recado.detalhamento;    
-
-    localStorage.setItem('recados', JSON.stringify(localRecados));
-
-    for(let tr of tableRecados.children) {
-        if(tr.id === idEdicao.value) {
-            for(let td of tr.children) {
-                if(td.classList.value.includes('descricao')) {
-                    td.textContent = recado.descricao;
-                } else if(td.classList.value.includes('detalhamento')) {
-                    td.textContent = recado.detalhamento;
-                }
-            }
-        }
-    }
-
-    formNewRecado.reset();
-}
 
 function criarRecadosIfNull() {
     if(semUsuarioLogado()) {
