@@ -1,4 +1,4 @@
-import {v4 as uuid} from '../node_modules/uuid/dist/esm-browser/index.js';
+import {v4 as uuid} from '/uuid/dist/esm-browser/index.js';
 import { getUsers, temUsuarioLogado } from './users.js';
 
 const formRegistro = document.getElementById('form-registro');
@@ -10,7 +10,7 @@ formRegistro.addEventListener('submit', submitRegistro);
 
 window.addEventListener('load', () => {
     if(temUsuarioLogado()) {
-        window.location.href = './index.html';
+        window.location.href = '/recados';
     }
 })
 
@@ -34,7 +34,7 @@ function submitRegistro(event) {
         localStorage.setItem('users', JSON.stringify(localUsers));
         localStorage.setItem('logged-user', id);
 
-        window.location.href = './index.html';
+        window.location.href = 'recados';
     } else {
         alert('usuário já existe');
     }
