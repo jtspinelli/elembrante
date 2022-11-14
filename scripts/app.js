@@ -1,4 +1,4 @@
-import {v4 as uuid} from './node_modules/uuid/dist/esm-browser/index.js';
+import {v4 as uuid} from '../node_modules/uuid/dist/esm-browser/index.js';
 import { getUsers, semUsuarioLogado, loggedUser, logoutUser } from './users.js';
 import { addGrabbingCursor, addRowShadow, removeRowShadow, removeGrabbingCursor } from './table-row.js';
 import { semRecadosNoLocalStorage, inicializarRecadosNoLocalStorage,  getRecadosFromLocalStorage, getRecadosFromLoggedUser, sobreporRecadosNoLocalStorage } from './recados.js';
