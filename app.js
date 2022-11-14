@@ -1,6 +1,7 @@
 import {v4 as uuid} from './node_modules/uuid/dist/esm-browser/index.js';
-import { getUsers } from './users.js';
+import { getUsers, semUsuarioLogado, loggedUser } from './users.js';
 import { addGrabbingCursor, addRowShadow, removeRowShadow, removeGrabbingCursor } from './table-row.js';
+import { getRecadosFromLocalStorage, semRecadosNoLocalStorage, inicializarRecadosNoLocalStorage, getRecadosFromLoggedUser } from './recados.js';
 
 const formNewRecado = document.getElementById('form-new-recado');
 const formNewRecadoDescricao = document.getElementById('description');
@@ -218,22 +219,21 @@ function salvarRecado(recado) {
 }
 
 function criarRecadosIfNull() {
-    const user = localStorage.getItem('logged-user');
-
-    if(user === 'null' || user === null ) {
-        window.location.href = './login.html';
+    if(semUsuarioLogado()) {
+        redirectTo('login');
     } else {
-        const users = getUsers();
-        const userName = users.find(e => e.id === localStorage.getItem('logged-user')).username;
+        const userName = getUsers().find(e => e.id === loggedUser()).username;
         userLabel.textContent = userName;
 
-        const userRecados = localStorage.getItem('recados');
-
-        if(userRecados === null) {
-            localStorage.setItem('recados', JSON.stringify([]));
+        if(semRecadosNoLocalStorage()) {
+            inicializarRecadosNoLocalStorage();
         } else {
-            recados = JSON.parse(userRecados).filter(e => e.userId === localStorage.getItem('logged-user'));
+            recados = getRecadosFromLoggedUser();
             popularTabelaRecados();
         }
     }
+}
+
+function redirectTo(page) {
+    window.location.href = `./${page}.html`;
 }
