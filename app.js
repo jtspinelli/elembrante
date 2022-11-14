@@ -251,6 +251,8 @@ export function atualizarOrdenadoresNaVariableRecados(recadosReordenados) {
 
 
 
+
+// INICIALIZAÇÃO DO APP
 function init() {
     if(semUsuarioLogado()) {
         redirectTo('login');
