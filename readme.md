@@ -19,6 +19,12 @@ O APP consiste em três páginas que permitem:
 
 <br>
 
+## It's LIVE
+
+O app pode ser visualizado online no **[HEROKU](https://salty-refuge-11977.herokuapp.com/)**.
+
+<br>
+
 ## Login e Registro
 
 **Login** e **Registro** são gerenciados em páginas diferentes.
