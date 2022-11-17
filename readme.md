@@ -25,6 +25,12 @@ O app pode ser visualizado online no **[HEROKU](https://salty-refuge-11977.herok
 
 <br>
 
+## Estilos
+
+Com uso de [Sass](https://github.com/jtspinelli/growdev-ativ-final-intro-prog-web/blob/master/sass/main.scss) o tema padrão do Bootstrap foi modificado para criar um **tema personalizado** para a aplicação.
+
+<br>
+
 ## Login e Registro
 
 **Login** e **Registro** são gerenciados em páginas diferentes.
