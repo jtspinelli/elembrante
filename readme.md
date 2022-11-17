@@ -29,6 +29,8 @@ O app pode ser visualizado online no **[HEROKU](https://salty-refuge-11977.herok
 
 Com uso de [Sass](https://github.com/jtspinelli/growdev-ativ-final-intro-prog-web/blob/master/sass/main.scss) o tema padrão do Bootstrap foi modificado para criar um **tema personalizado** para a aplicação.
 
+Os arquivos de estilo são compilados automaticamente ao rodar a aplicação.
+
 <br>
 
 ## Login e Registro
@@ -71,3 +73,23 @@ Uma vez logado no sistema, o usuário pode **visualizar**, **adicionar**, **edit
 O usuário pode reordenar seus recados facilmente, utilizando os manipuladores no início de cada linha.
 
 <img src='./images/Reord.png'>
+
+<br>
+
+## Rodando o APP
+
+Após baixar os arquivos do repositório, instale todas as dependências utilizando o comando:
+
+```
+npm install
+```
+
+Em seguida, rode a aplicação utilizando o comando:
+
+```
+npm start
+```
+
+##
+
+Dirija-se ao endereço ```http://localhost:3000``` para utilizar a aplicação.
