@@ -13,7 +13,7 @@ $lighter: $white;
 $dark: rgb(65, 65, 65);
 
 $input-color: $dark;
-$input-focus-box-shadow: 0 0 10px 0.25rem rgb(216 216 216 / 43%);
+$input-focus-box-shadow: 0 0 10px 0.25rem rgba(216, 216, 216, 0.43);
 $input-focus-border-color: #979797;
 
 $table-hover-bg-factor: .075;
