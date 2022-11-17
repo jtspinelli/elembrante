@@ -1,0 +1,34 @@
+@import "../node_modules/bootstrap/scss/functions";
+
+//custom variables
+$indigo: #6610f2;
+$green: #4ab354;
+$red: #dc3545;
+$white: whitesmoke;
+
+$primary: $green;
+$secondary: $red;
+$light: grey;
+$lighter: $white;
+$dark: rgb(65, 65, 65);
+
+$input-color: $dark;
+$input-focus-box-shadow: 0 0 10px 0.25rem rgb(216 216 216 / 43%);
+$input-focus-border-color: #979797;
+
+$table-hover-bg-factor: .075;
+$table-hover-bg: rgba($green, $table-hover-bg-factor);
+
+$link-color: $light;
+$link-shade-percentage: 20%;
+$link-hover-color: $primary;
+
+@import "../node_modules/bootstrap/scss/variables";
+
+$custom-theme-colors: (
+    "lighter": $lighter
+);
+
+$theme-colors: map-merge($custom-theme-colors, $theme-colors);
+
+@import '../node_modules/bootstrap/scss/bootstrap';
