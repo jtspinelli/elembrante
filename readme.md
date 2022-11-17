@@ -1,12 +1,4 @@
-# GROWDEV - APP de Recados
-
-<div align='center'>
-<img src='./images/growdev_logo.jpg' width='200px'>
-</div>
-
-Este repositório contém a Atividade Final do Módulo **Introdução à Programação** do curso de Full Stack Web Development.
-
-<br>
+# APP de Recados
 
 O APP consiste em três páginas que permitem:
 - Registro de usuários
@@ -16,6 +8,8 @@ O APP consiste em três páginas que permitem:
 - Edição de recado
 - Exclusão de recado
 - Reordenar recados
+
+A proposta foi exercitar mecanismos de CRUD (_create_, _read_, _update_, _delete_) utilizando ```localStorage``` para persistir os dados.
 
 <br>
 
