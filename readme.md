@@ -76,7 +76,7 @@ O usuário pode reordenar seus recados facilmente, utilizando os manipuladores n
 
 <br>
 
-## Rodando o APP
+## Rodando o APP*
 
 Após baixar os arquivos do repositório, instale todas as dependências utilizando o comando:
 
@@ -90,6 +90,10 @@ Em seguida, rode a aplicação utilizando o comando:
 npm start
 ```
 
-##
 
 Dirija-se ao endereço ```http://localhost:3000``` para utilizar a aplicação.
+
+
+##
+
+#### **\*** Necessário ter [Node.js](https://nodejs.org/en/) instalado.
