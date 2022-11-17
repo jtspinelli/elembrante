@@ -77,7 +77,6 @@ document.body.addEventListener('mousemove', teste);
 
 let trPositionsY = [];
 export function addGrabbingCursor(event) {
-    // console.log("mousedown");
 
     trPositionsY = [];
 
@@ -88,7 +87,6 @@ export function addGrabbingCursor(event) {
     }
 
     const indexDaTrClicada = [...tableRecados.children].map(e => e.id).indexOf(event.target.parentElement.id);
-    // console.log('INDEX DA TR CLICADA: ', indexDaTrClicada);
 
     clickedTr = indexDaTrClicada;
     overTr = indexDaTrClicada;
@@ -163,20 +161,12 @@ export function teste(event) {
             overTr = trPositionsY.length;
         }
 
-
-
-        // console.log(`OVER TR WAS: ${overTrWas}, NOW: ${overTr}`);
-
-
-
         if(overTrIncreased()){
             if(decreaseCount > 0) {
                 decreaseCount--;
             } else {
                 increaseCount++;
-            }            
-
-            // console.log(`INCREASE COUNT: ${increaseCount}, DECREASE COUNT: ${decreaseCount}`);
+            }
 
             const orderingNum = tableRecados.children[overTr].children[1].textContent;
 
@@ -192,9 +182,7 @@ export function teste(event) {
               increaseCount--;  
             } else {
                 decreaseCount++;
-            }           
-
-            // console.log(`INCREASE COUNT: ${increaseCount}, DECREASE COUNT: ${decreaseCount}`);
+            }
 
             const orderingNum = tableRecados.children[overTr].children[1].textContent;
             

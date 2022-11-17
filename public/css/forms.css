@@ -16,18 +16,6 @@ main#login, main#registro {
     transform: translate(-50%, -50%);    
 }
 
-/* main#login::before {
-    content: '';
-    background-color: white;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: calc(100% + 120px);
-    height: calc(100% + 120px);
-    z-index: -1;
-} */
-
 main#login form, main#registro form {
     display: flex;
     flex-direction: column;
