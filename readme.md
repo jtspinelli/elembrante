@@ -70,6 +70,16 @@ O usuário pode reordenar seus recados facilmente, utilizando os manipuladores n
 
 <br>
 
+## Responsividade
+
+A aplicação é responsiva à largura de tela. A tabela assume formato **"em cards"** em _smartphones_.
+
+<div align='center'>
+    <img src='./images/Responsividade.png' width='300px'>
+</div>
+
+<br>
+
 ## Rodando o APP*
 
 Após baixar os arquivos do repositório, instale todas as dependências utilizando o comando:
