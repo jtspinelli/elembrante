@@ -132,7 +132,7 @@ tbody tr th, tbody tr td {
 }
 
 .header-actions {
-    max-width: 127px; 
+    max-width: fit-content; 
     display: flex; 
     align-items: center;
     justify-content: end;
