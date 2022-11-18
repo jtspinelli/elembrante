@@ -27,7 +27,7 @@ app.get('/registro', (_, res) => {
     res.sendFile(__dirname + '/registro.html');
 });
 
-app.get('/recados', (_, res) => {
+app.get('/lembretes', (_, res) => {
     res.sendFile(__dirname + '/index.html');
 });
 

@@ -10,7 +10,7 @@ formRegistro.addEventListener('submit', submitRegistro);
 
 window.addEventListener('load', () => {
     if(temUsuarioLogado()) {
-        window.location.href = '/recados';
+        window.location.href = '/lembretes';
     }
 })
 
@@ -34,7 +34,7 @@ function submitRegistro(event) {
         localStorage.setItem('users', JSON.stringify(localUsers));
         localStorage.setItem('logged-user', id);
 
-        window.location.href = 'recados';
+        window.location.href = 'lembretes';
     } else {
         alert('usuário já existe');
     }
