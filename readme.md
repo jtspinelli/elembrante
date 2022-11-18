@@ -15,7 +15,7 @@ A proposta foi exercitar mecanismos de CRUD (_create_, _read_, _update_, _delete
 
 ## It's LIVE
 
-O app pode ser visualizado online no **[HEROKU](https://salty-refuge-11977.herokuapp.com/)**.
+O app pode ser visualizado online no **[HEROKU](https://elembrante.herokuapp.com/)**.
 
 <br>
 
