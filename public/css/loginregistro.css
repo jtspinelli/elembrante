@@ -1,0 +1,36 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 40px;
+}
+
+body > header {
+    display: flex;
+    justify-content: center;
+}
+
+body > header > img:first-child {
+    width: 650px;
+}
+
+body > header > img:last-child {
+    display: none;
+    width: 75%;
+}
+
+@media screen and (max-width: 720px) {
+    body > header > img:first-child {
+        width: 90%;
+    } 
+}
+
+@media screen and (max-width: 550px) {
+    body > header > img:first-child {
+        display: none;
+    } 
+
+    body > header > img:last-child {
+        display: unset;
+    }
+}

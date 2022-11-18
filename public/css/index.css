@@ -127,6 +127,17 @@ tbody tr th, tbody tr td {
     cursor: grabbing;
 }
 
+.elembrante-icon img {
+    width: 60px;
+}
+
+.header-actions {
+    max-width: 127px; 
+    display: flex; 
+    align-items: center;
+    justify-content: end;
+}
+
 @media (max-width: 1570px) {
     main, body > header {
         width: 95%;
@@ -197,5 +208,19 @@ tbody tr th, tbody tr td {
 
     table #table-recados tr td:nth-child(4), table #table-recados tr td:nth-child(5) {
         width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .index-header {
+        margin-bottom: 30px;
+    }
+    
+    .elembrante-icon {
+        text-align: left;
+    }
+
+    .header-actions {
+        max-width: unset;
     }
 }
