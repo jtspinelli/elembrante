@@ -1,13 +1,13 @@
-# APP de Recados
+# APP de Lembretes
 
 O APP consiste em três páginas que permitem:
 - Registro de usuários
 - Login
-- Exibição de recados 
-- Adição de novo recado
-- Edição de recado
-- Exclusão de recado
-- Reordenar recados
+- Exibição de lembretes 
+- Adição de novo lembrete
+- Edição de lembrete
+- Exclusão de lembrete
+- Reordenar lembretes
 
 A proposta foi exercitar mecanismos de CRUD (_create_, _read_, _update_, _delete_) utilizando ```localStorage``` para persistir os dados.
 
@@ -40,7 +40,7 @@ Os dados de Registro são salvos no ```LocalStorage``` para futura utilização.
 
 <br>
 
-O código ```Javascript``` da **página de Recados** valida as informações digitadas no formulário e só libera o botão de registro (criar conta) quando:
+O código ```Javascript``` da **página de Criar Conta** valida as informações digitadas no formulário e só libera o botão de registro (criar conta) quando:
 - Todos campos estão preenchidos
 - Dois campos de senha conferem (informações digitadas são iguais)
 
@@ -56,15 +56,15 @@ Um campo de informação destaca em vermelho os passos que ainda faltam para a l
 
 ## Página principal
 
-Uma vez logado no sistema, o usuário pode **visualizar**, **adicionar**, **editar** e **excluir** recados através da página principal.
+Uma vez logado no sistema, o usuário pode **visualizar**, **adicionar**, **editar** e **excluir** lembretes através da página principal.
 
 <img src='./images/Main.png'>
 
 <br>
 
-## Reordenar recados
+## Reordenar lembretes
 
-O usuário pode reordenar seus recados facilmente, utilizando os manipuladores no início de cada linha.
+O usuário pode reordenar seus lembretes facilmente, utilizando os manipuladores no início de cada linha.
 
 <img src='./images/Reord.png'>
 
