@@ -19,6 +19,41 @@ body > header > img:last-child {
     width: 75%;
 }
 
+.fade-in-bck {
+	-webkit-animation: fade-in-bck 1s ease-out both;
+    animation: fade-in-bck 1s ease-out both;
+}
+
+@keyframes fade-in-bck {
+    0% {
+        scale: 1.2;
+        opacity: 0;
+    }
+
+    100% {
+        scale: 1;
+        opacity: 1;
+    }
+}
+
+.fade-in-bottom {
+	-webkit-animation: fade-in-bottom .5s ease-out both;
+    animation: fade-in-bottom .5s ease-out both;
+    animation-delay: 1s;
+}
+
+@keyframes fade-in-bottom {
+    0% {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
 @media screen and (max-width: 720px) {
     body > header > img:first-child {
         width: 90%;
