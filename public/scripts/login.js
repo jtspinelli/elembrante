@@ -3,6 +3,7 @@ import { semUsuarioLogado } from "./users.js";
 const formLogin = document.getElementById('form-login');
 const formLoginUsername = document.getElementById('username');
 const formLoginPassword = document.getElementById('password');
+const errorAlert = document.querySelector('.alert-danger');
 let users = [
     {
         username: 'jspinelli',
@@ -48,12 +49,23 @@ function logar(event) {
 
     Promise.all([userFilled, passwordCorrect, userFound])
     .then(() => {
+        errorAlert.classList.remove("show");
+
         const id = users.find(e => e.username === username).id;
         localStorage.setItem('logged-user', id);
 
         window.location.href = '/lembretes';
     })
-    .catch(() => alert("senha incorreta ou usuário não encontrado"))
+    .catch(() => {
+        errorAlert.classList.add("show");
+        shakeAlert();
+    })
+}
+
+function shakeAlert() {
+    errorAlert.classList.remove("shake-horizontal");
+    errorAlert.offsetHeight;
+    errorAlert.classList.add("shake-horizontal");
 }
 
 function usernameNotEmpty() {
