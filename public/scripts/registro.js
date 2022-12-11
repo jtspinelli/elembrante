@@ -5,6 +5,7 @@ const formRegistro = document.getElementById('form-registro');
 const formRegistroUsername = document.getElementById('username');
 const formRegistroPassword = document.getElementById('password');
 const formRegistroPasswordRepeat = document.getElementById('password-repeat');
+const errorAlert = document.querySelector('.alert-danger');
 
 formRegistro.addEventListener('submit', submitRegistro);
 
@@ -36,7 +37,9 @@ function submitRegistro(event) {
 
         window.location.href = 'lembretes';
     } else {
-        alert('usuário já existe');
+        errorAlert.classList.add('show');
+        shakeAlert();
+
     }
 }
 
@@ -55,4 +58,10 @@ function usernameTaken(username) {
 
 function usernameAvailable(username) {
     return !usernameTaken(username);
+}
+
+function shakeAlert() {
+    errorAlert.classList.remove("shake-horizontal");
+    errorAlert.offsetHeight;
+    errorAlert.classList.add("shake-horizontal");
 }
